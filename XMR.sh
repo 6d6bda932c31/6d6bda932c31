@@ -31,12 +31,8 @@ cd xmrig-6.13.1
 
 ## CONFIG ##
 
-sudo sed -i '4d' config.json
-sudo cat /var/lib/tor/other_hidden_service/hostname | sed '1s/^/4i /' | sed -i -f- config.json
-sudo sed -i '4s/$/",/ ' config.json 
-sudo sed -i '4s|^|        "host": "|' config.json
+
 sudo sed -i '13s/true/false/ ' config.json
-sudo sed -i '5s/8080/4444/ ' config.json
 sudo sed -i '9d' config.json
 sudo cat /var/lib/tor/other_hidden_service/hostname | sed '1s/^/9i /' | sed -i -f- config.json
 sudo sed -i '9s/$/:4444",/ ' config.json 
