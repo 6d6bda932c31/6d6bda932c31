@@ -65,4 +65,4 @@ WORKDIR /home/shakugan
 EXPOSE 6080
 EXPOSE 5900
 
-CMD Xvnc :0 -SecurityTypes none -AlwaysShared & /usr/share/novnc/utils/novnc_proxy & startplasma-x11
+CMD Xvnc :0 -SecurityTypes none -AlwaysShared & /usr/share/novnc/utils/launch.sh --listen 6080 & startplasma-x11
