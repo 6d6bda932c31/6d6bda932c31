@@ -9,7 +9,7 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get install -qy  \
         sudo supervisor git xz-utils apt-utils openssh-server build-essential \
 	wget curl unzip openjdk-17-jdk openjdk-17-jre nano tigervnc-standalone-server \
-	qml-module-qt-labs-platform kinfocenter systemsettings kscreen python3-pip tigervnc-xorg-extension \ \
+	qml-module-qt-labs-platform kinfocenter systemsettings kscreen python3-pip tigervnc-xorg-extension \
         kwin-x11 dolphin x11vnc dbus-x11 novnc net-tools konsole fonts-noto-cjk fonts-noto-cjk-extra kde*
 
 # Fix en_US.UTF-8
