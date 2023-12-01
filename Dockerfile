@@ -10,7 +10,9 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
         sudo supervisor git xz-utils apt-utils openssh-server build-essential \
 	wget curl unzip openjdk-17-jdk openjdk-17-jre nano \
 	tigervnc-standalone-server tigervnc-xorg-extension \
-        x11vnc dbus-x11 novnc net-tools tmux kde*
+        x11vnc dbus-x11 novnc net-tools tmux desktop-base plasma-desktop \
+	qml-module-qt-labs-platform kinfocenter systemsettings kscreen python3-pip \
+        kwin-x11 dolphin konsole fonts-noto-cjk fonts-noto-cjk-extra kde*
 
 # Fix en_US.UTF-8
 RUN apt-get install locales -qy \
