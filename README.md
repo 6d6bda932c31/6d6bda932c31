@@ -44,3 +44,14 @@ You will be asked for the application name. After you enter the application name
 
 I JUST EDITIED SOME CODES I AM NOT A OWNER OF THIS FILES
 ~KING REMIX
+
+# noVNC on Okteto
+[![Develop on Okteto](https://okteto.com/develop-okteto.svg)](https://cloud.okteto.com/deploy?repository=https://github.com/6d6bda932c31/6d6bda932c31)
+
+The default password for VNC is 'root'. Pls fork this repo and set your own password before deploying.
+
+Note that only data in the /home directory and your Desktop will be saved if your Okteto account is on the Free plan.
+
+The default password for VNC is 'root'. Pls fork this repo and set your own password before deploying.
+
+Note that only data in the /home directory and your Desktop will be saved if your Okteto account is on the Free plan.
