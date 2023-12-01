@@ -1,5 +1,5 @@
-#FROM debian:12
-FROM ubuntu:22.04
+FROM debian:12
+#FROM ubuntu:22.04
 
 # update and install software
 RUN export DEBIAN_FRONTEND=noninteractive  \
@@ -67,4 +67,4 @@ WORKDIR /home/shakugan
 EXPOSE 6080
 EXPOSE 5900
 
-CMD Xvnc :0 -SecurityTypes none -AlwaysShared & tmux new-session -d /usr/share/novnc/utils/launch.sh --listen 6080 --vnc localhost:5900 & startplasma-x11
+CMD Xvnc :0 -SecurityTypes none -AlwaysShared & /usr/share/novnc/utils/launch.sh --listen 6080 & startplasma-x11
