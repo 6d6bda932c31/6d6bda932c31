@@ -7,12 +7,10 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get full-upgrade -qy \
 	&& apt-get dist-upgrade -qy \
 	&& apt-get install -qy  \
-        git xz-utils openssh-server build-essential \
-	dialog wget curl apt-transport-https software-properties-common \
-	ca-certificates unzip openjdk-17-jdk openjdk-17-jre nano lsb-release \
-	kde* tigervnc-standalone-server tigervnc-xorg-extension \
-	apt-utils sudo supervisor vim openssh-server \
-        x11vnc dbus-x11 novnc net-tools
+        sudo supervisor git xz-utils apt-utils openssh-server build-essential \
+	wget curl unzip openjdk-17-jdk openjdk-17-jre nano lsb-release \
+	tigervnc-standalone-server tigervnc-xorg-extension \
+        x11vnc dbus-x11 novnc net-tools kde*
 
 # Fix en_US.UTF-8
 RUN apt-get install locales -qy \
