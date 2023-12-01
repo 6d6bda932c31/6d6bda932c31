@@ -1,5 +1,5 @@
 services:
-  6d6bda932c31:
+  kdevps:
     build: .
     shm_size: 128gb
     ports:
