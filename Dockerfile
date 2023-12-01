@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:12
 
 # update and install software
 RUN export DEBIAN_FRONTEND=noninteractive  \
@@ -6,12 +6,12 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get full-upgrade -qy \
 	&& apt-get dist-upgrade -qy \
 	&& apt-get install -qy  \
-    git xz-utils openssh-server build-essential \
+        git xz-utils openssh-server build-essential \
 	dialog wget curl apt-transport-https software-properties-common \
 	ca-certificates unzip openjdk-17-jdk openjdk-17-jre nano lsb-release \
 	kde* tigervnc-standalone-server tigervnc-xorg-extension \
 	apt-utils sudo supervisor vim openssh-server \
-    x11vnc dbus-x11 novnc net-tools
+        x11vnc dbus-x11 novnc net-tools
 
 # Fix en_US.UTF-8
 RUN apt-get install locales -qy \
@@ -24,7 +24,7 @@ RUN apt-get install locales -qy \
 RUN echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/chrome.list \
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && apt-get update -qy \
-	&& apt-get install -y google-chrome-stable
+    && apt-get install -y google-chrome-stable
 
 # Install firefox
 RUN apt-get install -yq \
@@ -36,7 +36,7 @@ RUN apt-get install -yq \
 ARG NODE_VERSION=20
 RUN wget -O - https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash \
     && apt-get -y install nodejs \
-	&& npm i -g updates
+    && npm i -g updates
 
 # cleanup and fix
 RUN apt-get autoremove --purge -qy \
@@ -53,8 +53,8 @@ RUN useradd -m -s /bin/bash shakugan \
 # TZ, aliases
 ENV TZ=Etc/UTC
 RUN cd /home/shakugan \
-	&& echo 'export TZ=/usr/share/zoneinfo/$TZ' >> .bashrc \
-	&& sed -i 's/#alias/alias/' .bashrc
+    && echo 'export TZ=/usr/share/zoneinfo/$TZ' >> .bashrc \
+    && sed -i 's/#alias/alias/' .bashrc
 
 # set owner
 RUN chown -R shakugan:shakugan /home/shakugan/.*
