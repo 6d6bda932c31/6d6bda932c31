@@ -8,11 +8,9 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get dist-upgrade -qy \
 	&& apt-get install -qy  \
         sudo supervisor git xz-utils apt-utils openssh-server build-essential \
-	wget curl unzip openjdk-17-jdk openjdk-17-jre nano \
-	tigervnc-standalone-server tigervnc-xorg-extension \
-        x11vnc dbus-x11 novnc net-tools tmux desktop-base plasma-desktop \
-	qml-module-qt-labs-platform kinfocenter systemsettings kscreen python3-pip \
-        kwin-x11 dolphin konsole fonts-noto-cjk fonts-noto-cjk-extra kde*
+	wget curl unzip openjdk-17-jdk openjdk-17-jre nano tigervnc-standalone-server \
+	qml-module-qt-labs-platform kinfocenter systemsettings kscreen python3-pip tigervnc-xorg-extension \ \
+        kwin-x11 dolphin x11vnc dbus-x11 novnc net-tools konsole fonts-noto-cjk fonts-noto-cjk-extra kde*
 
 # Fix en_US.UTF-8
 RUN apt-get install locales -qy \
@@ -67,4 +65,4 @@ WORKDIR /home/shakugan
 EXPOSE 6080
 EXPOSE 5900
 
-CMD Xvnc :0 -SecurityTypes none -AlwaysShared & /usr/share/novnc/utils/launch.sh --listen 6080 & startplasma-x11
+CMD Xvnc :0 -SecurityTypes none -AlwaysShared & /usr/share/novnc/utils/novnc_proxy & startplasma-x11
