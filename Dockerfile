@@ -25,14 +25,10 @@ RUN echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sou
     && apt-get install -y google-chrome-stable
 
 # Install firefox
-#RUN apt-get install -yq \
-#	flatpak plasma-discover-backend-flatpak \
-#	&& flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo \
-#	&& flatpak install flathub org.mozilla.firefox -y
-RUN add-apt-repository ppa:mozillateam/ppa -y \
-    && echo -e '\nPackage: *\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 1002' | tee /etc/apt/preferences.d/mozilla-firefox \
-    && echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";' | tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox \
-    && apt-get update -qy \
+ADD mozillateam-ubuntu-ppa-jammy.list /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-jammy.list
+ADD mozilla-firefox /etc/apt/preferences.d/mozilla-firefox
+ADD 51unattended-upgrades-firefox /etc/apt/apt.conf.d/51unattended-upgrades-firefox
+RUN apt-get update -qy \
     && apt-get install firefox -y
 
 # Install node
