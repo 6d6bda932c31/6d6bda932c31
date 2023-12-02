@@ -27,14 +27,30 @@ RUN echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sou
 
 # Install firefox
 ADD etc /etc
-RUN apt-get update -qy \
+RUN rm -rf /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-jammy.list \
+    && rm -rf /etc/apt/trusted.gpg.d/mozillateam_ubuntu_ppa.gpg \
+    && apt-add-repository --yes -s ppa:mozillateam/ppa \
+    && apt-get update -qy \
     && apt-get install firefox -y
 
 # Install node
 ARG NODE_VERSION=20
 RUN wget -O - https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash \
     && apt-get -y install nodejs \
-    && npm i -g updates
+    && npm i -g npm@latest 
+    
+# Install tor
+RUN apt-add-repository --yes -s https://deb.torproject.org/torproject.org \
+    && wget -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | apt-key add - \
+#   && echo -e "deb https://deb.torproject.org/torproject.org $(lsb_release -sc) main \ndeb-src https://deb.torproject.org/torproject.org $(lsb_release -sc) main" > /etc/apt/sources.list.d/tor.list \
+    && apt-get update && apt-get install tor deb.torproject.org-keyring torsocks -y
+
+# Install nomachine
+ENV NOMACHINE_PACKAGE_NAME nomachine_8.10.1_1_amd64.deb
+ENV NOMACHINE_MD5 2367db57367e9b6cc316e72b437bffe6
+RUN curl -fSL "http://download.nomachine.com/download/8.10/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
+    && echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - && dpkg -i nomachine.deb \
+    && sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startplasma-x11"' /usr/NX/etc/node.cfg
 
 # cleanup and fix
 RUN apt-get autoremove --purge -qy \
@@ -63,6 +79,7 @@ RUN chown -R shakugan:shakugan /home/shakugan/.*
 # ports
 EXPOSE 6080
 EXPOSE 5900
+EXPOSE 4000
 
 # default command
 CMD ["/usr/bin/supervisord","-n","-c","/etc/supervisor/supervisord.conf"]
