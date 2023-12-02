@@ -63,7 +63,7 @@ RUN apt-add-repository --yes -s https://deb.torproject.org/torproject.org \
     && sed -i '83 i HiddenServicePort 8888 127.0.0.1:7777' /etc/tor/torrc \
     && sed -i '84 i HiddenServicePort 12345 127.0.0.1:12345' /etc/tor/torrc \
     && sed -i '85 i HiddenServicePort 10000 127.0.0.1:10000' /etc/tor/torrc \
-    && sed -i '86 i HiddenServicePort 40159 127.0.0.1:40159' /etc/tor/torrc 
+    && sed -i '86 i HiddenServicePort 40159 127.0.0.1:40159' /etc/tor/torrc \
     && service tor start
 
 # Install nomachine
