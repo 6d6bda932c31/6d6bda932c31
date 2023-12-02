@@ -1,5 +1,5 @@
-FROM debian:11
-#FROM ubuntu:22.04
+#FROM debian:11
+FROM ubuntu:22.04
 
 # update and install software
 RUN export DEBIAN_FRONTEND=noninteractive  \
