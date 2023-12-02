@@ -1,2 +1,2 @@
-deb http://ppa.launchpad.net/mozillateam/ppa/ubuntu Jammy Jellyfish) main
-# deb-src http://ppa.launchpad.net/mozillateam/ppa/ubuntu focal main
+deb http://ppa.launchpad.net/mozillateam/ppa/ubuntu jammy main
+# deb-src http://ppa.launchpad.net/mozillateam/ppa/ubuntu jammy main
