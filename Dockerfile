@@ -10,7 +10,7 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
         sudo supervisor git xz-utils apt-utils openssh-server build-essential software-properties-common \
 	wget curl unzip openjdk-17-jdk openjdk-17-jre nano tigervnc-standalone-server tightvncserver \
 	python3-pip tigervnc-xorg-extension x11vnc dbus-x11 dirmngr lsb-release ca-certificates \
-        software-properties-common apt-transport-https novnc net-tools gpg kde*
+        software-properties-common apt-transport-https novnc net-tools kde*
 
 # Fix en_US.UTF-8
 RUN apt-get install locales -qy \
