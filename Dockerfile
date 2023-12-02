@@ -1,9 +1,6 @@
 #FROM debian:11
 FROM ubuntu:22.04
 
-# add my sys config files
-ADD etc /etc
-
 # update and install software
 RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get update -qy \
@@ -29,7 +26,7 @@ RUN echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sou
     && apt-get install -y google-chrome-stable
 
 # Install firefox
-
+ADD etc /etc
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9BDB3D89CE49EC21 \
     && apt-get update -qy \
     && apt-get install firefox -y
