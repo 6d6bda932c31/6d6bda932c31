@@ -7,9 +7,9 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get full-upgrade -qy \
 	&& apt-get dist-upgrade -qy \
 	&& apt-get install -qy  \
-        sudo supervisor git xz-utils apt-utils openssh-server build-essential \
+        sudo supervisor git xz-utils apt-utils openssh-server build-essential software-properties-common \
 	wget curl unzip openjdk-17-jdk openjdk-17-jre nano tigervnc-standalone-server tightvncserver \
-	python3-pip tigervnc-xorg-extension x11vnc dbus-x11 novnc net-tools tmux fluxbox xvfb jq kde-full
+	python3-pip tigervnc-xorg-extension x11vnc dbus-x11 novnc net-tools kde*
 
 # Fix en_US.UTF-8
 RUN apt-get install locales -qy \
@@ -25,10 +25,15 @@ RUN echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sou
     && apt-get install -y google-chrome-stable
 
 # Install firefox
-RUN apt-get install -yq \
-	flatpak plasma-discover-backend-flatpak \
-	&& flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo \
-	&& flatpak install flathub org.mozilla.firefox -y
+#RUN apt-get install -yq \
+#	flatpak plasma-discover-backend-flatpak \
+#	&& flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo \
+#	&& flatpak install flathub org.mozilla.firefox -y
+RUN add-apt-repository ppa:mozillateam/ppa -y \
+    && echo -e '\nPackage: *\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 1002' | tee /etc/apt/preferences.d/mozilla-firefox \
+    && echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";' | tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox \
+    && apt-get update -qy \
+    && apt-get install firefox -y
 
 # Install node
 ARG NODE_VERSION=20
