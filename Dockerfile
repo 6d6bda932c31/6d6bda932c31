@@ -27,9 +27,7 @@ RUN echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sou
 
 # Install firefox
 ADD etc /etc
-RUN gpg --no-default-keyring --keyring /usr/share/keyrings/mozillateam-ubuntu-ppa.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0AB215679C571D1C8325275B9BDB3D89CE49EC21 \
-#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9BDB3D89CE49EC21 \
-    && apt-get update -qy \
+RUN apt-get update -qy \
     && apt-get install firefox -y
 
 # Install node
