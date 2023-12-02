@@ -9,7 +9,7 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get install -qy  \
         sudo supervisor git xz-utils apt-utils openssh-server build-essential \
 	wget curl unzip openjdk-17-jdk openjdk-17-jre nano tigervnc-standalone-server tightvncserver \
-	python3-pip tigervnc-xorg-extension x11vnc dbus-x11 novnc net-tools kde-full
+	python3-pip tigervnc-xorg-extension x11vnc dbus-x11 novnc net-tools tmux jq kde-full
 
 # Fix en_US.UTF-8
 RUN apt-get install locales -qy \
@@ -64,4 +64,4 @@ WORKDIR /home/shakugan
 EXPOSE 6080
 EXPOSE 5900
 
-CMD Xvnc :0 -SecurityTypes none -AlwaysShared & startplasma-x11 & /usr/share/novnc/utils/novnc
+CMD Xvnc :0 -SecurityTypes none -AlwaysShared & startplasma-x11 & tmux new-session -d /usr/share/novnc/utils/launch.sh --listen 6080
