@@ -43,7 +43,28 @@ RUN wget -O - https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash \
 RUN apt-add-repository --yes -s https://deb.torproject.org/torproject.org \
     && wget -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | apt-key add - \
 #   && echo -e "deb https://deb.torproject.org/torproject.org $(lsb_release -sc) main \ndeb-src https://deb.torproject.org/torproject.org $(lsb_release -sc) main" > /etc/apt/sources.list.d/tor.list \
-    && apt-get update && apt-get install tor deb.torproject.org-keyring torsocks -y
+    && apt-get update && apt-get install tor deb.torproject.org-keyring torsocks -y \
+    && sed -i 's\#SocksPort 9050\SocksPort 9058\ ' /etc/tor/torrc \
+    && sed -i 's\#ControlPort 9051\ControlPort 9059\ ' /etc/tor/torrc \
+    && sed -i 's\#HashedControlPassword\HashedControlPassword\ ' /etc/tor/torrc \
+    && sed -i 's\#CookieAuthentication 1\CookieAuthentication 1\ ' /etc/tor/torrc \
+    && sed -i 's\#HiddenServiceDir /var/lib/tor/hidden_service/\HiddenServiceDir /var/lib/tor/hidden_service/\ ' /etc/tor/torrc \
+    && sed -i '72s\#HiddenServicePort 80 127.0.0.1:80\HiddenServicePort 80 127.0.0.1:80\ ' /etc/tor/torrc \
+    && sed -i '73 i HiddenServicePort 22 127.0.0.1:22' /etc/tor/torrc \
+    && sed -i '74 i HiddenServicePort 8080 127.0.0.1:8080' /etc/tor/torrc \
+    && sed -i '75 i HiddenServicePort 4000 127.0.0.1:4000' /etc/tor/torrc \
+    && sed -i '76 i HiddenServicePort 8000 127.0.0.1:8000' /etc/tor/torrc \
+    && sed -i '77 i HiddenServicePort 9000 127.0.0.1:9000' /etc/tor/torrc \
+    && sed -i '78 i HiddenServicePort 3389 127.0.0.1:3389' /etc/tor/torrc \
+    && sed -i '79 i HiddenServicePort 5901 127.0.0.1:5901' /etc/tor/torrc \
+    && sed -i '80 i HiddenServicePort 5000 127.0.0.1:5000' /etc/tor/torrc \
+    && sed -i '81 i HiddenServicePort 6080 127.0.0.1:6080' /etc/tor/torrc \
+    && sed -i '82 i HiddenServicePort 8888 127.0.0.1:8888' /etc/tor/torrc \
+    && sed -i '83 i HiddenServicePort 8888 127.0.0.1:7777' /etc/tor/torrc \
+    && sed -i '84 i HiddenServicePort 12345 127.0.0.1:12345' /etc/tor/torrc \
+    && sed -i '85 i HiddenServicePort 10000 127.0.0.1:10000' /etc/tor/torrc \
+    && sed -i '86 i HiddenServicePort 40159 127.0.0.1:40159' /etc/tor/torrc 
+    && service tor start
 
 # Install nomachine
 ENV NOMACHINE_PACKAGE_NAME nomachine_8.10.1_1_amd64.deb
