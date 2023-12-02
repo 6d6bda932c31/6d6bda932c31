@@ -59,9 +59,9 @@ ADD etc /etc
 # set owner
 RUN chown -R shakugan:shakugan /home/shakugan/.*
 
-USER shakugan
+#USER shakugan
 
-WORKDIR /home/shakugan
+#WORKDIR /home/shakugan
 
 # ports
 EXPOSE 6080
