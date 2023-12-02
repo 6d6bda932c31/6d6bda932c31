@@ -12,7 +12,8 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get install -qy  \
         sudo supervisor git xz-utils apt-utils openssh-server build-essential software-properties-common \
 	wget curl unzip openjdk-17-jdk openjdk-17-jre nano tigervnc-standalone-server tightvncserver \
-	python3-pip tigervnc-xorg-extension x11vnc dbus-x11 novnc net-tools kde*
+	python3-pip tigervnc-xorg-extension x11vnc dbus-x11 dirmngr lsb-release ca-certificates \
+        software-properties-common apt-transport-https novnc net-tools kde*
 
 # Fix en_US.UTF-8
 RUN apt-get install locales -qy \
@@ -28,7 +29,9 @@ RUN echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sou
     && apt-get install -y google-chrome-stable
 
 # Install firefox
-RUN apt-get update -qy \
+
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9BDB3D89CE49EC21 \
+    && apt-get update -qy \
     && apt-get install firefox -y
 
 # Install node
