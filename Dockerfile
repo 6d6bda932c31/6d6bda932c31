@@ -1,6 +1,9 @@
 #FROM debian:11
 FROM ubuntu:22.04
 
+# add my sys config files
+ADD etc /etc
+
 # update and install software
 RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get update -qy \
@@ -25,9 +28,6 @@ RUN echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sou
     && apt-get install -y google-chrome-stable
 
 # Install firefox
-ADD mozillateam-ubuntu-ppa-jammy.list /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-jammy.list
-ADD mozilla-firefox /etc/apt/preferences.d/mozilla-firefox
-ADD 51unattended-upgrades-firefox /etc/apt/apt.conf.d/51unattended-upgrades-firefox
 RUN apt-get update -qy \
     && apt-get install firefox -y
 
@@ -53,9 +53,6 @@ ENV TZ=Etc/UTC
 RUN cd /home/shakugan \
     && echo 'export TZ=/usr/share/zoneinfo/$TZ' >> .bashrc \
     && sed -i 's/#alias/alias/' .bashrc
-	
-# add my sys config files
-ADD etc /etc
 
 # set owner
 RUN chown -R shakugan:shakugan /home/shakugan/.*
