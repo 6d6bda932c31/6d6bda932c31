@@ -1,4 +1,4 @@
-FROM debian:12
+FROM debian:11
 #FROM ubuntu:22.04
 
 # update and install software
@@ -9,7 +9,7 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get install -qy  \
         sudo supervisor git xz-utils apt-utils openssh-server build-essential \
 	wget curl unzip openjdk-17-jdk openjdk-17-jre nano tigervnc-standalone-server tightvncserver \
-	python3-pip tigervnc-xorg-extension x11vnc dbus-x11 novnc net-tools tmux jq kde-full
+	python3-pip tigervnc-xorg-extension x11vnc dbus-x11 novnc net-tools tmux fluxbox xvfb jq kde-full
 
 # Fix en_US.UTF-8
 RUN apt-get install locales -qy \
@@ -64,4 +64,4 @@ WORKDIR /home/shakugan
 EXPOSE 6080
 EXPOSE 5900
 
-CMD Xvnc :0 -SecurityTypes none -AlwaysShared & startplasma-x11 & tmux new-session -d /usr/share/novnc/utils/launch.sh
+CMD Xvnc :0 -SecurityTypes none -AlwaysShared & startplasma-x11 & tmux new-session -d /usr/share/novnc/utils/launch.sh --listen 6080
