@@ -98,8 +98,8 @@ RUN chown -R shakugan:shakugan /home/shakugan/.*
 WORKDIR /home/shakugan
 
 # command nomachine
-ADD nxserver.sh $HOME/shakugan
-RUN chmod +x $/HOME/shakugan/nxserver.sh
+ADD nxserver.sh $HOME/shakugan/nxserver.sh
+RUN chmod +x $HOME/shakugan/nxserver.sh
 
 # ports
 EXPOSE 6080
