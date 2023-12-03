@@ -103,9 +103,7 @@ ADD nxserver.sh /home/shakugan/nxserver.sh
 RUN chmod +x /home/shakugan/nxserver.sh
 
 # ports
-EXPOSE 6080
-EXPOSE 5900
-EXPOSE 4000
+EXPOSE 6080 5900 4000
 
 # default command
 CMD ["/usr/bin/supervisord","-n","-c","/etc/supervisor/supervisord.conf"]
