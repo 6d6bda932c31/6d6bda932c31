@@ -97,15 +97,14 @@ RUN chown -R shakugan:shakugan /home/shakugan/.*
 
 WORKDIR /home/shakugan
 
+# command nomachine
+ADD nxserver.sh /
+RUN chmod +x nxserver.sh
+
 # ports
 EXPOSE 6080
 EXPOSE 5900
 EXPOSE 4000
 
-# command nomachine
-ADD nxserver.sh /
-RUN chmod +x nxserver.sh
-ENTRYPOINT ["/nxserver.sh"]
-
 # default command
-CMD ["/usr/bin/supervisord","-n","-c","/etc/supervisor/supervisord.conf"]
+CMD ["/usr/bin/supervisord","-n","-c","/etc/supervisor/supervisord.conf","./nxserver.sh"]
