@@ -71,9 +71,7 @@ ENV NOMACHINE_PACKAGE_NAME nomachine_8.10.1_1_amd64.deb
 ENV NOMACHINE_MD5 2367db57367e9b6cc316e72b437bffe6
 RUN curl -fSL "http://download.nomachine.com/download/8.10/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
     && echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - && dpkg -i nomachine.deb \
-    && sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startplasma-x11"' /usr/NX/etc/node.cfg \
-    && /etc/NX/nxserver --startup \
-    && tail -f /usr/NX/var/log/nxserver.log
+    && sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startplasma-x11"' /usr/NX/etc/node.cfg
 
 # cleanup and fix
 RUN apt-get autoremove --purge -qy \
@@ -97,12 +95,17 @@ RUN chown -R shakugan:shakugan /home/shakugan/.*
 
 #USER shakugan
 
-#WORKDIR /home/shakugan
+WORKDIR /home/shakugan
 
 # ports
 EXPOSE 6080
 EXPOSE 5900
 EXPOSE 4000
+
+# command nomachine
+ADD nxserver.sh /
+RUN chmod +x nxserver.sh
+ENTRYPOINT ["/nxserver.sh"]
 
 # default command
 CMD ["/usr/bin/supervisord","-n","-c","/etc/supervisor/supervisord.conf"]
