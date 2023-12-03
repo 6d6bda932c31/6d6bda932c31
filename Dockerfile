@@ -72,6 +72,8 @@ ENV NOMACHINE_MD5 2367db57367e9b6cc316e72b437bffe6
 RUN curl -fSL "http://download.nomachine.com/download/8.10/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
     && echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - && dpkg -i nomachine.deb \
     && sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startplasma-x11"' /usr/NX/etc/node.cfg
+    && /etc/NX/nxserver --startup
+    && tail -f /usr/NX/var/log/nxserver.log
 
 # cleanup and fix
 RUN apt-get autoremove --purge -qy \
