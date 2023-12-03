@@ -27,9 +27,9 @@ RUN echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sou
 
 # Install firefox
 ADD etc /etc
-RUN rm -rf /etc/apt/sources.list.d/mozillateam-ubuntu-ppa-jammy.list \
-    && rm -rf /etc/apt/trusted.gpg.d/mozillateam_ubuntu_ppa.gpg \
-    && apt-add-repository --yes -s ppa:mozillateam/ppa \
+RUN apt-add-repository --yes -s ppa:mozillateam/ppa \
+    && echo -e '\nPackage: *\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 1001' | tee /etc/apt/preferences.d/mozilla-firefox \
+    &&echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";' | tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox \
     && apt-get update -qy \
     && apt-get install firefox -y
 
