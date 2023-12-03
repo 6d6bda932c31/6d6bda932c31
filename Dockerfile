@@ -107,4 +107,4 @@ EXPOSE 5900
 EXPOSE 4000
 
 # default command
-CMD ["/usr/bin/supervisord","-n","-c","/etc/supervisor/supervisord.conf","./nxserver.sh"]
+CMD ["/usr/bin/supervisord","-n","-c","/etc/supervisor/supervisord.conf","/bin/bash /home/shakugan/nxserver.sh"]
