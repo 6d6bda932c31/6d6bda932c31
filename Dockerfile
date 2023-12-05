@@ -4,8 +4,7 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get update -qy \
 	&& apt-get full-upgrade -qy \
 	&& apt-get dist-upgrade -qy \
-	&& apt-get install -qy cinnamon locales sudo
-RUN apt-get install novnc x11vnc -y
+	&& apt-get install -qy cinnamon cinnamon-desktop-environment locales sudo novnc x11vnc
 RUN apt update && \
     DEBIAN_FRONTEND=noninteractive apt install -y xrdp tigervnc-standalone-server && \
     adduser xrdp ssl-cert && \
@@ -13,7 +12,7 @@ RUN apt update && \
     update-locale LANG=en_US.UTF-8
 
 ARG USER=shakugan
-ARG PASS=1AliAly032230
+ARG PASS=AliAly032230
 
 RUN useradd -m $USER -p $(openssl passwd $PASS) && \
     usermod -aG sudo $USER && \
