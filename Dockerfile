@@ -1,14 +1,11 @@
 #FROM ubuntu:jammy-20230425
-FROM ubuntu:lunar-20230615
+FROM ubuntu:lunar
 
-# RUN apt update && \
-#     DEBIAN_FRONTEND=noninteractive apt install -y cinnamon locales sudo
-
-# RUN apt update && \
-#     DEBIAN_FRONTEND=noninteractive apt install -y cinnamon-desktop-environment locales sudo
-
-RUN apt update && \
-    DEBIAN_FRONTEND=noninteractive apt install -y ubuntucinnamon-desktop locales sudo
+RUN export DEBIAN_FRONTEND=noninteractive  \
+	&& apt-get update -qy \
+	&& apt-get full-upgrade -qy \
+	&& apt-get dist-upgrade -qy \
+	&& apt-get install -qy \ ubuntucinnamon-desktop locales sudo
 RUN apt-get install novnc x11vnc -y
 RUN apt update && \
     DEBIAN_FRONTEND=noninteractive apt install -y xrdp tigervnc-standalone-server && \
