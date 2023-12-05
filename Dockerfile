@@ -5,7 +5,7 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get update -qy \
 	&& apt-get full-upgrade -qy \
 	&& apt-get dist-upgrade -qy \
-	&& apt-get install -qy \ ubuntucinnamon-desktop locales sudo
+	&& apt-get install -qy ubuntucinnamon-desktop locales sudo
 RUN apt-get install novnc x11vnc -y
 RUN apt update && \
     DEBIAN_FRONTEND=noninteractive apt install -y xrdp tigervnc-standalone-server && \
