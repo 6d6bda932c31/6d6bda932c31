@@ -11,7 +11,8 @@ RUN apt update && \
     DEBIAN_FRONTEND=noninteractive apt install -y ubuntucinnamon-desktop locales sudo
 
 RUN apt update && \
-    DEBIAN_FRONTEND=noninteractive apt install -y xrdp tigervnc-standalone-server novnc && \
+    DEBIAN_FRONTEND=noninteractive apt install -y xrdp tigervnc-standalone-server && \
+    apt-get install novnc -y && \
     adduser xrdp ssl-cert && \
     locale-gen en_US.UTF-8 && \
     update-locale LANG=en_US.UTF-8
