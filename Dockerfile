@@ -4,9 +4,7 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get update -qy \
 	&& apt-get full-upgrade -qy \
 	&& apt-get dist-upgrade -qy \
-	&& apt-get install -qy cinnamon cinnamon-desktop-environment locales sudo novnc x11vnc
-RUN apt update && \
-    DEBIAN_FRONTEND=noninteractive apt install -y xrdp tigervnc-standalone-server && \
+	&& apt-get install -qy cinnamon cinnamon-desktop-environment locales sudo novnc x11vnc xrdp tigervnc-standalone-server && \
     adduser xrdp ssl-cert && \
     locale-gen en_US.UTF-8 && \
     update-locale LANG=en_US.UTF-8
