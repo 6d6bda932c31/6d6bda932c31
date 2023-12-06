@@ -6,9 +6,9 @@ RUN export DEBIAN_FRONTEND=noninteractive  \
 	&& apt-get full-upgrade -qy \
 	&& apt-get dist-upgrade -qy \
 	&& apt-get install -qy \
-    sudo supervisor wget curl unzip tar git xz-utils apt-utils openssh-server build-essential software-properties-common \
-    openjdk-17-jdk openjdk-17-jre nano tigervnc-standalone-server tightvncserver python3-pip tigervnc-xorg-extension \
-    x11vnc dbus-x11 lsb-release ca-certificates apt-transport-https novnc net-tools cinnamon* xrdp
+        sudo supervisor wget curl unzip tar git xz-utils apt-utils openssh-server build-essential software-properties-common \
+        openjdk-17-jdk openjdk-17-jre nano tigervnc-standalone-server tightvncserver python3-pip tigervnc-xorg-extension \
+        x11vnc dbus-x11 lsb-release ca-certificates apt-transport-https novnc net-tools cinnamon* xrdp
 
 # Fix en_US.UTF-8
 RUN apt-get install locales -qy \
@@ -21,7 +21,7 @@ RUN apt-get install locales -qy \
 # user and groups
 ENV USER shakugan
 ENV PASSWORD AliAly032230
-RUN useradd -m $USER -p $(openssl passwd $PASS) && \
+RUN useradd -m $USER -p $(openssl passwd $PASS) \
     && usermod -aG sudo $USER \
     && echo "${USER}:${PASSWORD}" | chpasswd \
     && echo "${USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
@@ -34,11 +34,11 @@ RUN adduser xrdp ssl-cert \
     && sed -i '3 i export XDG_SESSION_TYPE=x11' /env \
     && sed -i '4 i export XDG_CURRENT_DESKTOP=X-Cinnamon' /env \
     && sed -i '5 i export XDG_CONFIG_DIRS=/etc/xdg/xdg-cinnamon:/etc/xdg' /env \
-	&& chmod 555 /env \
+    && chmod 555 /env \
     && sed -i '1 i #!/bin/sh' /xstartup \
     && sed -i '2 i . /env' /xstartup \
     && sed -i '3 i exec dbus-run-session -- cinnamon-session' /xstartup \
-	&& chmod +x /xstartup \
+    && chmod +x /xstartup \
     && cp -f /xstartup /etc/xrdp/startwm.sh
 
 # config vnc
@@ -49,7 +49,7 @@ RUN mkdir /home/$USER/.vnc && \
     && cp -f /xstartup /home/$USER/.vnc/xstartup \
     && sed -i '1 i #!/bin/sh' /startvnc \
     && sed -i '2 i sudo -u $USER -g $USER -- vncserver -rfbport 5902 -geometry 1920x1080 -depth 24 -verbose -localhost no -autokill no' /startvnc \
-	&& chmod +x /startvnc
+    && chmod +x /startvnc
 
 EXPOSE 6080 3389 5902
 
