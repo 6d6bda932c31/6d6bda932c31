@@ -31,7 +31,7 @@ RUN useradd -m $USER -p $(openssl passwd $PASSWORD) \
 RUN echo "#!/bin/sh\nexport XDG_SESSION_DESKTOP=cinnamon\nexport XDG_SESSION_TYPE=x11\nexport XDG_CURRENT_DESKTOP=X-Cinnamon\nexport XDG_CONFIG_DIRS=/etc/xdg/xdg-cinnamon:/etc/xdg" > /env \ 
     && chmod 555 /env \
     && echo "#!/bin/sh\n. /env\nexec dbus-run-session -- cinnamon-session" > /xstartup \
-    && chmod +x /xstartup \
+    && chmod +x /xstartup
 
 # config vnc
 ENV DISPLAY=:0 \
