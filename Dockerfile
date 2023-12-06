@@ -43,7 +43,7 @@ RUN adduser xrdp ssl-cert \
 
 # config vnc
 RUN mkdir /home/$USER/.vnc && \
-    echo $PASS | vncpasswd -f > /home/$USER/.vnc/passwd && \
+    echo $PASSWORD | vncpasswd -f > /home/$USER/.vnc/passwd && \
     chmod 0600 /home/$USER/.vnc/passwd && \
     chown -R $USER:$USER /home/$USER/.vnc \
     && cp -f /xstartup /home/$USER/.vnc/xstartup \
