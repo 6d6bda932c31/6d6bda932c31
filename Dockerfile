@@ -29,25 +29,17 @@ RUN useradd -m $USER -p $(openssl passwd $PASSWORD) \
 
 # config xrdp
 RUN adduser xrdp ssl-cert \
-    && touch env \
-    && sed -i '1 i #!/bin/sh' /env \
-    && sed -i '2 i export XDG_SESSION_DESKTOP=cinnamon' /env \
-    && sed -i '3 i export XDG_SESSION_TYPE=x11' /env \
-    && sed -i '4 i export XDG_CURRENT_DESKTOP=X-Cinnamon' /env \
-    && sed -i '5 i export XDG_CONFIG_DIRS=/etc/xdg/xdg-cinnamon:/etc/xdg' /env \
+    && echo "#!/bin/sh\nexport XDG_SESSION_DESKTOP=cinnamon\nexport XDG_SESSION_TYPE=x11\nexport XDG_CURRENT_DESKTOP=X-Cinnamon\nexport XDG_CONFIG_DIRS=/etc/xdg/xdg-cinnamon:/etc/xdg" > /env \ 
     && chmod 555 /env \
-    && touch xstartup \
-    && sed -i '1 i #!/bin/sh' /xstartup \
-    && sed -i '2 i . /env' /xstartup \
-    && sed -i '3 i exec dbus-run-session -- cinnamon-session' /xstartup \
+    && echo "#!/bin/sh\n. /env\nexec dbus-run-session -- cinnamon-session" > /xstartup \
     && chmod +x /xstartup \
     && cp -f /xstartup /etc/xrdp/startwm.sh
 
 # config vnc
-RUN mkdir /home/$USER/.vnc && \
-    echo $PASSWORD | vncpasswd -f > /home/$USER/.vnc/passwd && \
-    chmod 0600 /home/$USER/.vnc/passwd && \
-    chown -R $USER:$USER /home/$USER/.vnc \
+RUN mkdir /home/$USER/.vnc \
+    && echo $PASSWORD | vncpasswd -f > /home/$USER/.vnc/passwd \
+    && chmod 0600 /home/$USER/.vnc/passwd \
+    && chown -R $USER:$USER /home/$USER/.vnc \
     && cp -f /xstartup /home/$USER/.vnc/xstartup \
     && echo "#!/bin/sh\nsudo -u $USER -g $USER -- vncserver -rfbport 5902 -geometry 1920x1080 -depth 24 -verbose -localhost no -autokill no" > /startvnc \
     && chmod +x /startvnc
