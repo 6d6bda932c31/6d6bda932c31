@@ -29,12 +29,14 @@ RUN useradd -m $USER -p $(openssl passwd $PASSWORD) \
 
 # config xrdp
 RUN adduser xrdp ssl-cert \
+    && touch env \
     && sed -i '1 i #!/bin/sh' /env \
     && sed -i '2 i export XDG_SESSION_DESKTOP=cinnamon' /env \
     && sed -i '3 i export XDG_SESSION_TYPE=x11' /env \
     && sed -i '4 i export XDG_CURRENT_DESKTOP=X-Cinnamon' /env \
     && sed -i '5 i export XDG_CONFIG_DIRS=/etc/xdg/xdg-cinnamon:/etc/xdg' /env \
     && chmod 555 /env \
+    && touch xstartup
     && sed -i '1 i #!/bin/sh' /xstartup \
     && sed -i '2 i . /env' /xstartup \
     && sed -i '3 i exec dbus-run-session -- cinnamon-session' /xstartup \
