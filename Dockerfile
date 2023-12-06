@@ -36,7 +36,7 @@ RUN adduser xrdp ssl-cert \
     && sed -i '4 i export XDG_CURRENT_DESKTOP=X-Cinnamon' /env \
     && sed -i '5 i export XDG_CONFIG_DIRS=/etc/xdg/xdg-cinnamon:/etc/xdg' /env \
     && chmod 555 /env \
-    && touch xstartup
+    && touch xstartup \
     && sed -i '1 i #!/bin/sh' /xstartup \
     && sed -i '2 i . /env' /xstartup \
     && sed -i '3 i exec dbus-run-session -- cinnamon-session' /xstartup \
@@ -49,6 +49,7 @@ RUN mkdir /home/$USER/.vnc && \
     chmod 0600 /home/$USER/.vnc/passwd && \
     chown -R $USER:$USER /home/$USER/.vnc \
     && cp -f /xstartup /home/$USER/.vnc/xstartup \
+    && touch startvnc \
     && sed -i '1 i #!/bin/sh' /startvnc \
     && sed -i '2 i sudo -u $USER -g $USER -- vncserver -rfbport 5902 -geometry 1920x1080 -depth 24 -verbose -localhost no -autokill no' /startvnc \
     && chmod +x /startvnc
