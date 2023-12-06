@@ -51,7 +51,7 @@ RUN mkdir /home/$USER/.vnc && \
     && cp -f /xstartup /home/$USER/.vnc/xstartup \
     && touch startvnc \
     && sed -i '1 i #!/bin/sh' /startvnc \
-    && sed -i '2 i sudo -u $USER -g $USER -- vncserver -rfbport 5902 -geometry 1920x1080 -depth 24 -verbose -localhost no -autokill no' /startvnc \
+    && sed -i '2 i sudo -u ${USER} -g ${USER} -- vncserver -rfbport 5902 -geometry 1920x1080 -depth 24 -verbose -localhost no -autokill no' /startvnc \
     && chmod +x /startvnc
 
 EXPOSE 6080 3389 5902
