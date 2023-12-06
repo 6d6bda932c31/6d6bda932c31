@@ -21,7 +21,7 @@ RUN apt-get install locales -qy \
 # user and groups
 ENV USER shakugan
 ENV PASSWORD AliAly032230
-RUN useradd -m $USER -p $(openssl passwd $PASS) \
+RUN useradd -m $USER -p $(openssl passwd $PASSWORD) \
     && usermod -aG sudo $USER \
     && echo "${USER}:${PASSWORD}" | chpasswd \
     && echo "${USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
