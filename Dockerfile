@@ -47,9 +47,9 @@ RUN mkdir /home/$USER/.vnc \
     && chmod 0600 /home/$USER/.vnc/passwd \
     && chown -R $USER:$USER /home/$USER/.vnc \
     && cp -f /xstartup /home/$USER/.vnc/xstartup \
-    && echo "#!/bin/sh\nXvnc :0 -AlwaysShared " > /startvnc \
+    && echo "#!/bin/sh\nsudo -u $USER -g $USER -- vncserver -rfbport 5902 -geometry 1920x1080 -depth 24 -verbose -localhost no -autokill no" > /startvnc \
     && chmod +x /startvnc
 
 EXPOSE 6080 3389 5902
 
-CMD service dbus start && /usr/lib/systemd/systemd-logind && /startvnc && /usr/share/novnc/utils/launch.sh --listen 6080
+CMD service dbus start && /usr/lib/systemd/systemd-logind && /startvnc && /usr/share/novnc/utils/launch.sh --listen 6080 --vnc localhost:5902
