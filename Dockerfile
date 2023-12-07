@@ -34,14 +34,6 @@ RUN echo "#!/bin/sh\nexport XDG_SESSION_DESKTOP=cinnamon\nexport XDG_SESSION_TYP
     && chmod +x /xstartup
 
 # config vnc
-ENV DISPLAY=:0 \
-    SCR_WIDTH=1600 \
-    SCR_HEIGHT=900 \
-    SCR_DEPTH=32 \
-    KDE_FULL_SESSION=true \
-    SHELL=/bin/bash \
-    HOME=/home/${USER} \
-    XDG_RUNTIME_DIR=/run/${USER}
 RUN mkdir /home/$USER/.vnc \
     && echo $PASSWORD | vncpasswd -f > /home/$USER/.vnc/passwd \
     && chmod 0600 /home/$USER/.vnc/passwd \
