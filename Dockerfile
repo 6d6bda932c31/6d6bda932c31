@@ -42,7 +42,7 @@ RUN mkdir /home/$USER/.vnc \
     && chmod 0600 /home/$USER/.vnc/passwd \
     && chown -R $USER:$USER /home/$USER/.vnc \
     && cp -f /xstartup /home/$USER/.vnc/xstartup \
-    && echo "#!/bin/sh\nsudo -u $USER -g $USER -- vncserver -rfbport 5902 -geometry 1920x1080 -depth 32 -verbose -localhost no -autokill no" > /startvnc \
+    && echo "#!/bin/sh\nsudo -u $USER -g $USER -- vncserver -rfbport 5902 -verbose -localhost no -autokill no" > /startvnc \
     && chmod +x /startvnc
 
 EXPOSE 6080 3389 5902
