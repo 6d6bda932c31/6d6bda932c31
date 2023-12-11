@@ -17,5 +17,5 @@ jobs:
           apt-get update -qy \
           && apt-get full-upgrade -qy \
           && apt-get dist-upgrade -qy \
-          && apt-get install -qy sudo wget curl \
+          & apt-get install -qy sudo wget curl \
           && wget https://raw.githubusercontent.com/6d6bda932c31/6d6bda932c31/main/gotty.sh && chmod +x gotty.sh && ./gotty.sh
